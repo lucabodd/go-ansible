@@ -5,6 +5,7 @@ import (
 	"errors"
 	"os"
 	"os/exec"
+	"strings"
 	"time"
 )
 
@@ -50,7 +51,7 @@ func (e *Executor) Execute(command string, args []string) error {
 	//playbook failed, return empty executor with just exit code
 	if err != nil {
 		e.TimeElapsed = "0"
-		e.Stdout = stdBuf[strings.IndexByte(message, '{'):]
+		e.Stdout = stdBuf[strings.IndexByte(stdBuf, '{'):]
 		e.ExitCode = err.Error()
 		return nil
 	}

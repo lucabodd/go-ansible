@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"strings"
 	"time"
+	"fmt"
 )
 
 // DefaultExecute is a simple definition of an executor
@@ -51,7 +52,10 @@ func (e *Executor) Execute(command string, args []string) error {
 	//playbook failed, return empty executor with just exit code
 	if err != nil {
 		e.TimeElapsed = "0"
-		e.Stdout = stdBuf[strings.IndexByte(stdBuf, '{'):]
+		fmt.Println(e.Stdout)
+		if(e.Stdout != ""){
+			e.Stdout = stdBuf[strings.IndexByte(stdBuf, '{'):]
+		}
 		e.ExitCode = err.Error()
 		return nil
 	}

@@ -7,7 +7,6 @@ import (
 	"os/exec"
 	"strings"
 	"time"
-	"fmt"
 )
 
 // DefaultExecute is a simple definition of an executor

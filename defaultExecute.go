@@ -53,6 +53,8 @@ func (e *Executor) Execute(command string, args []string) error {
 		e.TimeElapsed = "0"
 		if(strings.Contains("{", stdBuf) ){
 			e.Stdout = stdBuf[strings.IndexByte(stdBuf, '{'):]
+		} else {
+			e.Stdout = stdBuf
 		}
 		e.ExitCode = err.Error()
 		return nil

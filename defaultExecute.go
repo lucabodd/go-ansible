@@ -51,7 +51,7 @@ func (e *Executor) Execute(command string, args []string) error {
 	//playbook failed, return empty executor with just exit code
 	if err != nil {
 		e.TimeElapsed = "0"
-		if(stdBuf != ""){
+		if(strings.Contains("{") ){
 			e.Stdout = stdBuf[strings.IndexByte(stdBuf, '{'):]
 		}
 		e.ExitCode = err.Error()

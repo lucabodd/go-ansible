@@ -291,51 +291,37 @@ func (r *PlaybookResults) AnsibleJsonParse(e *Executor) error {
 	// retrive stats from ansible run
 	//changed
 	value := gjson.Get(stdout, "stats.*.changed")
-	if !value.Exists() {
-		return errors.New("(ansible:Run) -> cannot retrive changed from ansible run")
-	} else {
+	if value.Exists() {
 		r.Changed = value.Int()
 	}
 	//changed
 	value = gjson.Get(stdout, "stats.*.failures")
-	if !value.Exists() {
-		return errors.New("(ansible:Run) -> cannot retrive failures from ansible run")
-	} else {
+	if value.Exists() {
 		r.Failures = value.Int()
 	}
 	//ignored
 	value = gjson.Get(stdout, "stats.*.ignored")
-	if !value.Exists() {
-		return errors.New("(ansible:Run) -> cannot retrive ignored from ansible run")
-	} else {
+	if value.Exists() {
 		r.Ignored = value.Int()
 	}
 	//ok
 	value = gjson.Get(stdout, "stats.*.ok")
-	if !value.Exists() {
-		return errors.New("(ansible:Run) -> cannot retrive ok from ansible run")
-	} else {
+	if value.Exists() {
 		r.Ok = value.Int()
 	}
 	//rescued
 	value = gjson.Get(stdout, "stats.*.rescued")
-	if !value.Exists() {
-		return errors.New("(ansible:Run) -> cannot retrive rescued from ansible run")
-	} else {
+	if value.Exists() {
 		r.Rescued = value.Int()
 	}
 	//skipped
 	value = gjson.Get(stdout, "stats.*.skipped")
-	if !value.Exists() {
-		return errors.New("(ansible:Run) -> cannot retrive skipped from ansible run")
-	} else {
+	if value.Exists() {
 		r.Skipped = value.Int()
 	}
 	//unreachable
 	value = gjson.Get(stdout, "stats.*.unreachable")
-	if !value.Exists() {
-		return errors.New("(ansible:Run) -> cannot retrive unreachable from ansible run")
-	} else {
+	if value.Exists() {
 		r.Unreachable = value.Int()
 	}
 

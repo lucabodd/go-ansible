@@ -40,7 +40,6 @@ func (e *Executor) Execute(command string, args []string) error {
 		}
 	}()
 
-	fmt.Println(stdBuf)
 	timeInit := time.Now()
 	err = cmd.Start()
 
@@ -51,6 +50,7 @@ func (e *Executor) Execute(command string, args []string) error {
 	err = cmd.Wait()
 
 	//playbook failed, return empty executor with just exit code
+	fmt.Println(stdBuf)
 	e.Stdout = stdBuf
 
 	if err != nil {

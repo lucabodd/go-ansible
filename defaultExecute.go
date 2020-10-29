@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"time"
+	"fmt"
 )
 
 // DefaultExecute is a simple definition of an executor
@@ -39,6 +40,7 @@ func (e *Executor) Execute(command string, args []string) error {
 		}
 	}()
 
+	fmt.Println(stdBuf)
 	timeInit := time.Now()
 	err = cmd.Start()
 

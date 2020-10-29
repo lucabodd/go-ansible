@@ -32,28 +32,26 @@ func (e *Executor) Execute(command string, args []string) error {
 		return errors.New("(DefaultExecute::Execute) -> " + err.Error())
 	}
 
+
+	scanner := bufio.NewScanner(cmdReader)
+
+	go func() {
+		for scanner.Scan() {
+			stdBuf = stdBuf + "\n" + scanner.Text()
+		}
+	}()
+
+	timeInit := time.Now()
+
 	err = cmd.Start()
 
 	if err != nil {
 		return errors.New("(DefaultExecute::Execute) -> " + err.Error())
 	}
 
-	scanner := bufio.NewScanner(cmdReader)
-
-	go func() {
-		for scanner.Scan() {
-			line := scanner.Text()
-			stdBuf = stdBuf + "\n" + line
-		}
-	}()
-
-	timeInit := time.Now()
-
-
 	err = cmd.Wait()
 
 	//playbook failed, return empty executor with just exit code
-	fmt.Println(stdBuf)
 	e.Stdout = stdBuf
 
 	if err != nil {

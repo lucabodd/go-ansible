@@ -24,7 +24,7 @@ func (e *Executor) Execute(command string, args []string) error {
 	cmd.Env = os.Environ()
 	cmd.Env = append(cmd.Env, "ANSIBLE_STDOUT_CALLBACK=json")
 	cmd.Env = append(cmd.Env, "ANSIBLE_HOST_KEY_CHECKING=False")
-	cmd.Env = append(cmd.Env, "ANSIBLE_RETRY\_FILES_ENABLED=False")
+	cmd.Env = append(cmd.Env, "ANSIBLE_RETRY_FILES_ENABLED=False")
 
 	cmdReader, err := cmd.StdoutPipe()
 	if err != nil {

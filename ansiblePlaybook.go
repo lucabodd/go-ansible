@@ -144,8 +144,7 @@ func (p *PlaybookCmd) Run() (*PlaybookResults,error) {
 		case "exit status 250":
 			return r, errors.New("(ansible:Run) -> process exited with exit code 250, unexpected error occurred running "+p.Playbook+"\n[CMDUMP] "+cmdump)
 		default:
-			// Execute the command an return
-			return r,err
+			return r,nil
 	}
 
 

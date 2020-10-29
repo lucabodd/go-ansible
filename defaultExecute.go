@@ -33,9 +33,11 @@ func (e *Executor) Execute(command string, args []string) error {
 
 	scanner := bufio.NewScanner(cmdReader)
 
-	for scanner.Scan() {
-		stdBuf = stdBuf + "\n" + scanner.Text()
-	}
+	go func() {
+		for scanner.Scan() {
+			stdBuf = stdBuf + "\n" + scanner.Text()
+		}
+	}()
 
 	timeInit := time.Now()
 	err = cmd.Start()
@@ -47,16 +49,14 @@ func (e *Executor) Execute(command string, args []string) error {
 	err = cmd.Wait()
 
 	//playbook failed, return empty executor with just exit code
+	e.Stdout = stdBuf
+
 	if err != nil {
 		e.TimeElapsed = "0"
-		e.Stdout = stdBuf
 		e.ExitCode = err.Error()
-		return nil
+	} else{
+		e.TimeElapsed = time.Since(timeInit).String()
+		e.ExitCode = "exit status 0"
 	}
-
-	e.TimeElapsed = time.Since(timeInit).String()
-	e.Stdout = stdBuf
-	e.ExitCode = "exit status 0"
-
 	return nil
 }

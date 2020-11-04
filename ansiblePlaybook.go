@@ -131,6 +131,8 @@ func (p *PlaybookCmd) Run() (*PlaybookResults,error) {
 	r.AnsibleJsonParse(&p.Exec)
 
 	switch p.Exec.ExitCode {
+		case "exit status 1":
+			return r, errors.New("(ansible:Run) -> process exited with exit code 1, 'Error'"+p.Playbook+"\n[CMDUMP] "+cmdump)
 		case "exit status 2":
 			return r, errors.New("(ansible:Run) -> process exited with exit code 2, this means that one or more host failed running playbook "+p.Playbook+"\nthis most likely is a playbook error, try to run it standalone using command:\n[CMDUMP] "+cmdump+"\nif you expect this behavior by playbook you can set 'ignore_errors: yes' on failing blocks")
 		case "exit status 3":
